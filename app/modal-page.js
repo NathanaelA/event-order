@@ -1,21 +1,7 @@
-// -----------------------------------------------------------------------------------
-// (c) 2019, Master Technology
-// -----------------------------------------------------------------------------------
-
-
 const frame = require('tns-core-modules/ui/frame');
 
-let orderId = 0;
-if (!global.log) {
-    global.log = function(page, value) {
-        orderId++;
-        console.log(page.padEnd(10, " ")+" ("+orderId+"): "+value );
-    };
-    global.resetOrder = function() { orderId = 0; };
-}
-
-const pageName="main-page";
-const navigationPage = "aa-page";
+const pageName="model-page";
+const navigationPage = "n/a";
 
 global.log(pageName, "loaded and parsed by JavaScript Engine (only happens once per app run)");
 
@@ -86,7 +72,7 @@ function letShow() {
 }
 exports.letsShow = letShow;
 
-function closeModal() {
-    frame.topmost().closeModal();
+function closeModal(args) {
+    args.object.closeModal();
 }
 exports.closeModal = closeModal;

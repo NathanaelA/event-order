@@ -1,79 +1,78 @@
 const frame = require('tns-core-modules/ui/frame');
 
-let eventOrder=[];
-console.log("aa-Page actually loaded and parsed by JavaScript Engine");
+const pageName="aa-page";
+const navigationPage = "main-page";
+
+global.log(pageName, "loaded and parsed by JavaScript Engine (only happens once per app run)");
 
 function navedTo(args) {
-    eventOrder.push("NavigatedTo aa-page");
-    console.log("NavigatedTo aa-page");
+    global.log(pageName, "NavigatedTo");
 }
 exports.navedTo = navedTo;
 
 function navingTo(args) {
-    eventOrder.push("NavigatingTo aa-page");
-    console.log("NavigatingTo aa-page");
+    global.log(pageName, "NavigatingTo");
 }
 exports.navingTo = navingTo;
 
 function navedFrom(args) {
-    eventOrder.push("NavigatedFrom aa-page");
-    console.log("NavigatedFrom aa-page");
+    global.log(pageName, "NavigatedFrom");
 }
 exports.navedFrom = navedFrom;
 
 function navingFrom(args) {
-    eventOrder.push("NavigatingFrom aa-page");
-    console.log("NavigatingFrom aa-page");
+    global.log(pageName, "NavigatingFrom");
 }
 exports.navingFrom = navingFrom;
 
 function loaded(args) {
-    eventOrder.push("loaded aa-page");
-    console.log("loaded aa-page");
+    global.log(pageName, "loaded");
 }
 exports.loaded = loaded;
 
 function unloaded(args) {
-    eventOrder.push("unloaded aa-page");
-    console.log("unloaded aa-page");
+    global.log(pageName, "unloaded");
 }
 exports.unloaded = unloaded;
 
 function shownmodal(args) {
-    eventOrder.push("shownModal aa-page");
-    console.log("shownModal aa-page");
+    global.log(pageName, "shownModal");
 }
 exports.shownmodal= shownmodal;
 
 function showingmodal(args) {
-    eventOrder.push("showingModal aa-page");
-    console.log("showingModal aa-page");
+    global.log(pageName, "showingModal");
 }
 exports.showingmodal= showingmodal;
 
 function layoutChanged(args) {
-    eventOrder.push("layoutChanged aa-page");
-    console.log("layoutChanged aa-page");
+    global.log(pageName, "layoutChanged");
 }
 exports.layoutChanged = layoutChanged;
 
 function letsNav() {
+    global.resetOrder();
     console.log("");
     console.log("----------------------------------");
-    console.log("Attempting to navigate to main-page");
-    frame.topmost().navigate("/main-page");
+    global.log(pageName, "Attempting to navigate to "+ navigationPage);
+    frame.topmost().navigate("/"+navigationPage);
 }
 exports.letsNav = letsNav;
 
 function close() {
-    console.log("Close Modal Callback (in aa-page)");
+    global.log(pageName, "Close Modal Callback");
 }
 
 function letShow() {
+    global.resetOrder();
     console.log("");
     console.log("----------------------------------");
-    console.log("Starting showModal main-page");
-    frame.topmost().currentPage.showModal("/main-page", {closeCallback: close});
+    global.log(pageName, "Attempting ShowModal page "+ navigationPage);
+    frame.topmost().currentPage.showModal("/modal-page", {closeCallback: close});
 }
 exports.letsShow = letShow;
 
+function closeModal() {
+    frame.topmost().closeModal();
+}
+exports.closeModal = closeModal;
